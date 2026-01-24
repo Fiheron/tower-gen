@@ -143,12 +143,13 @@
       container.innerHTML = "";
       towers.forEach((tower) => {
         const value = Math.floor(Math.random() * (tower.max - tower.min + 1)) + tower.min;
+        const tokenText = value === 1 ? 'Token' : 'Tokens';
         const el = document.createElement("div");
         el.className = "tower";
         el.innerHTML = `
           <div class="name">${tower.name}</div>
           <div class="range">Range: ${tower.min}–${tower.max}</div>
-          <div class="token">${value} Token</div>
+          <div class="token">${value} ${tokenText}</div>
         `;
         container.appendChild(el);
       });
