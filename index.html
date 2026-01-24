@@ -14,10 +14,13 @@
       margin: 0;
       padding: 16px;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     .container {
+      width: 100%;
       max-width: 900px;
-      margin: 0 auto;
     }
     h1 {
       text-align: center;
@@ -41,6 +44,7 @@
       font-weight: 600;
       background: #ffd86b;
       color: #1a1a1a;
+      transition: opacity 0.15s ease;
     }
     button:hover {
       opacity: 0.9;
@@ -49,6 +53,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 12px;
+      width: 100%;
     }
     .tower {
       background: rgba(255, 255, 255, 0.06);
@@ -59,6 +64,11 @@
       justify-content: space-between;
       align-items: center;
       box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .tower:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.35);
     }
     .name {
       font-size: 15px;
@@ -85,34 +95,30 @@
   </div>
 
   <script>
-    
     const towers = [
-      { name: "Barracks", min: 1, max: 5 },
-      { name: "Golden Commando", min: 1, max: 5 },
-      { name: "Graveyard", min: 1, max: 5 },
-      { name: "Railgunner", min: 1, max: 5 },
-      { name: "Scout", min: 1, max: 5 },
-      { name: "Sniper", min: 1, max: 5 },
-      { name: "Zed", min: 1, max: 5 },
-
       { name: "Aviator", min: 3, max: 7 },
-      { name: "Patrol", min: 3, max: 7 },
-      { name: "Phaser", min: 3, max: 7 },
-      { name: "Tuber", min: 3, max: 7 },
-
+      { name: "Barracks", min: 1, max: 5 },
+      { name: "Commander", min: 7, max: 10 },
       { name: "Cryo-Gunner", min: 5, max: 10 },
       { name: "DJ", min: 5, max: 10 },
       { name: "Flamethrower", min: 5, max: 10 },
+      { name: "Fragger", min: 7, max: 10 },
+      { name: "Golden Commando", min: 1, max: 5 },
+      { name: "Golden Scout", min: 7, max: 10 },
+      { name: "Graveyard", min: 1, max: 5 },
       { name: "Hallowboomer", min: 5, max: 10 },
       { name: "Marksman", min: 5, max: 10 },
       { name: "Mercenary", min: 5, max: 10 },
-      { name: "Soldier", min: 5, max: 10 },
-
-      { name: "Commander", min: 7, max: 10 },
-      { name: "Fragger", min: 7, max: 10 },
-      { name: "Golden Scout", min: 7, max: 10 },
       { name: "Mortar", min: 7, max: 10 },
-      { name: "Shotgunner", min: 7, max: 10 }
+      { name: "Patrol", min: 3, max: 7 },
+      { name: "Phaser", min: 3, max: 7 },
+      { name: "Railgunner", min: 1, max: 5 },
+      { name: "Scout", min: 1, max: 5 },
+      { name: "Shotgunner", min: 7, max: 10 },
+      { name: "Sniper", min: 1, max: 5 },
+      { name: "Soldier", min: 5, max: 10 },
+      { name: "Tuber", min: 3, max: 7 },
+      { name: "Zed", min: 1, max: 5 }
     ].sort((a, b) => a.name.localeCompare(b.name));
 
     const container = document.getElementById("list");
@@ -122,7 +128,6 @@
       container.innerHTML = "";
       towers.forEach((tower) => {
         const value = Math.floor(Math.random() * (tower.max - tower.min + 1)) + tower.min;
-
         const el = document.createElement("div");
         el.className = "tower";
         el.innerHTML = `
@@ -138,3 +143,6 @@
 
     button.addEventListener("click", generate);
     generate();
+  </script>
+</body>
+</html>
