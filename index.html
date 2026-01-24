@@ -3,139 +3,193 @@
 <head>
   <meta charset="UTF-8" />
   <title>Tower Token Generator</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #0f1220;
+      --card-bg: #1a1d33;
+      --card-hover: #232640;
+      --accent: #ffd86b;
+      --accent-hover: #ffe499;
+      --text-main: #ffffff;
+      --text-muted: #8b9bb4;
+      --border: rgba(255, 255, 255, 0.08);
+      --shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
     body {
-      font-family: 'Inter', Arial, sans-serif;
-      background: linear-gradient(135deg, #0f1220, #1e2140);
-      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 20px;
+      padding: 40px 20px;
     }
     .container {
       width: 100%;
-      max-width: 1000px;
+      max-width: 1100px;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 40px;
     }
     h1 {
-      text-align: center;
-      margin-bottom: 8px;
-      font-size: clamp(26px, 5vw, 36px);
-      color: #ffd86b;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+      font-weight: 800;
+      font-size: clamp(32px, 5vw, 42px);
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+      background: linear-gradient(to right, #fff, var(--text-muted));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     p {
-      text-align: center;
-      opacity: 0.8;
-      margin-bottom: 24px;
-      font-size: clamp(14px, 2.5vw, 16px);
+      color: var(--text-muted);
+      font-size: 15px;
     }
     .controls {
       display: flex;
       justify-content: center;
-      gap: 12px;
-      margin-bottom: 24px;
+      gap: 16px;
+      margin-bottom: 40px;
       flex-wrap: wrap;
     }
-    button, select {
-      padding: 12px 22px;
+    .btn, .select-wrapper {
+      height: 50px;
+    }
+    .btn {
+      padding: 0 32px;
       border-radius: 12px;
+      border: none;
       font-size: 15px;
       font-weight: 700;
-      height: 48px;
-      transition: all 0.2s ease;
-    }
-    button {
-      border: none;
+      background: var(--accent);
+      color: #0f1220;
       cursor: pointer;
-      background: #ffd86b;
-      color: #1a1a1a;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.25);
+      transition: transform 0.2s, background-color 0.2s;
     }
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-      background: #ffdf85;
+    .btn:active {
+      transform: scale(0.96);
+    }
+    .btn:hover {
+      background: var(--accent-hover);
+    }
+    .select-wrapper {
+      position: relative;
+      min-width: 220px;
     }
     select {
+      width: 100%;
+      height: 100%;
+      appearance: none;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0 40px 0 20px;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 500;
       cursor: pointer;
-      background-color: #16192b;
-      color: #ffffff;
-      border: 2px solid #2a2d55;
       outline: none;
-      min-width: 200px;
+      transition: border-color 0.2s, background-color 0.2s;
     }
     select:hover {
-      border-color: #ffd86b;
-      background-color: #1e2140;
+      border-color: rgba(255,255,255,0.2);
+      background-color: var(--card-hover);
     }
     select:focus {
-      border-color: #ffd86b;
+      border-color: var(--accent);
+    }
+    .select-wrapper::after {
+      content: '';
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0; 
+      height: 0; 
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid var(--text-muted);
+      pointer-events: none;
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
       width: 100%;
     }
-    .tower {
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(10px);
-      border-radius: 16px;
-      padding: 18px 20px;
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       align-items: center;
-      box-shadow: 0 12px 35px rgba(0,0,0,0.25);
-      transition: all 0.2s ease;
-      min-height: 90px;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      position: relative;
+      overflow: hidden;
     }
-    .tower:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 18px 45px rgba(0,0,0,0.35);
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+      border-color: rgba(255, 216, 107, 0.3);
+      background: var(--card-hover);
     }
-    .name {
-      font-size: 16px;
-      font-weight: 700;
-      color: #fff;
-      text-align: center;
-      word-break: break-word;
-    }
-    .range {
-      font-size: 12px;
-      opacity: 0.7;
-      margin-top: 4px;
+    .card-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
       text-align: center;
     }
-    .token {
-      font-size: 20px;
+    .card-value {
+      font-size: 36px;
       font-weight: 800;
-      color: #ffd86b;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-      margin-top: 6px;
-      text-align: center;
+      color: var(--text-main);
+      margin-bottom: 4px;
+      line-height: 1;
+    }
+    .card-label {
+      font-size: 14px;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    .card-range {
+      font-size: 13px;
+      color: rgba(255,255,255,0.3);
+      background: rgba(0,0,0,0.2);
+      padding: 4px 10px;
+      border-radius: 20px;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Tower Token Generator</h1>
-    <p>Random values are generated every time you press regenerate.</p>
+    <header>
+      <h1>Tower Token Generator</h1>
+      <p>Click regenerate to randomize values.</p>
+    </header>
     
     <div class="controls">
-      <button id="regen">Regenerate</button>
-      <select id="sortMode">
-        <option value="name">Name (A-Z)</option>
-        <option value="price">Tokens (High to Low)</option>
-      </select>
+      <button id="regen" class="btn">Regenerate</button>
+      <div class="select-wrapper">
+        <select id="sortMode">
+          <option value="name">Name (A-Z)</option>
+          <option value="high">Tokens (High to Low)</option>
+          <option value="low">Tokens (Low to High)</option>
+        </select>
+      </div>
     </div>
 
     <div id="list" class="grid"></div>
@@ -168,48 +222,44 @@
     ];
 
     let currentData = [];
-
     const container = document.getElementById("list");
     const button = document.getElementById("regen");
     const sortSelect = document.getElementById("sortMode");
 
+    const sortStrategies = {
+      name: (a, b) => a.name.localeCompare(b.name),
+      high: (a, b) => (b.value - a.value) || a.name.localeCompare(b.name),
+      low: (a, b) => (a.value - b.value) || a.name.localeCompare(b.name)
+    };
+
     function generateValues() {
-      currentData = towerConfig.map(tower => {
-        return {
-          ...tower,
-          value: Math.floor(Math.random() * (tower.max - tower.min + 1)) + tower.min
-        };
-      });
+      currentData = towerConfig.map(tower => ({
+        ...tower,
+        value: Math.floor(Math.random() * (tower.max - tower.min + 1)) + tower.min
+      }));
       render();
     }
 
     function render() {
-      const sortMode = sortSelect.value;
-      
-      if (sortMode === "price") {
-        currentData.sort((a, b) => {
-          if (b.value !== a.value) {
-            return b.value - a.value;
-          }
-          return a.name.localeCompare(b.name);
-        });
-      } else {
-        currentData.sort((a, b) => a.name.localeCompare(b.name));
-      }
+      const sortFn = sortStrategies[sortSelect.value];
+      currentData.sort(sortFn);
 
-      container.innerHTML = "";
+      const fragment = document.createDocumentFragment();
       
       currentData.forEach((tower) => {
-        const tokenText = tower.value === 1 ? 'Token' : 'Tokens';
         const el = document.createElement("div");
-        el.className = "tower";
+        el.className = "card";
         el.innerHTML = `
-          <div class="name">${tower.name}</div>
-          <div class="range">Range: ${tower.min}–${tower.max}</div>
-          <div class="token">${tower.value} ${tokenText}</div>
+          <div class="card-name">${tower.name}</div>
+          <div class="card-value">${tower.value}</div>
+          <div class="card-label">${tower.value === 1 ? 'Token' : 'Tokens'}</div>
+          <div class="card-range">${tower.min} – ${tower.max}</div>
         `;
-        container.appendChild(el);
+        fragment.appendChild(el);
       });
+      
+      container.innerHTML = "";
+      container.appendChild(fragment);
     }
 
     button.addEventListener("click", generateValues);
