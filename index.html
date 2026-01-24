@@ -13,6 +13,7 @@
       color: #ffffff;
       margin: 0;
       padding: 16px;
+      min-height: 100vh;
     }
     .container {
       max-width: 900px;
@@ -26,8 +27,23 @@
     p {
       text-align: center;
       opacity: 0.8;
-      margin-bottom: 24px;
+      margin-bottom: 12px;
       font-size: clamp(14px, 2.5vw, 16px);
+    }
+    button {
+      display: block;
+      margin: 0 auto 24px;
+      padding: 10px 18px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      background: #ffd86b;
+      color: #1a1a1a;
+    }
+    button:hover {
+      opacity: 0.9;
     }
     .grid {
       display: grid;
@@ -43,11 +59,6 @@
       justify-content: space-between;
       align-items: center;
       box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-    .tower:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 40px rgba(0,0,0,0.35);
     }
     .name {
       font-size: 15px;
@@ -68,7 +79,8 @@
 <body>
   <div class="container">
     <h1>Tower Token Generator</h1>
-    <p>Random values are generated on every page load.</p>
+    <p>Random values are generated every time you press regenerate.</p>
+    <button id="regen">Regenerate</button>
     <div id="list" class="grid"></div>
   </div>
 
@@ -101,24 +113,28 @@
       { name: "Golden Scout", min: 7, max: 10 },
       { name: "Mortar", min: 7, max: 10 },
       { name: "Shotgunner", min: 7, max: 10 }
-    ];
+    ].sort((a, b) => a.name.localeCompare(b.name));
 
     const container = document.getElementById("list");
+    const button = document.getElementById("regen");
 
-    towers.forEach((tower) => {
-      const value = Math.floor(Math.random() * (tower.max - tower.min + 1)) + tower.min;
+    function generate() {
+      container.innerHTML = "";
+      towers.forEach((tower) => {
+        const value = Math.floor(Math.random() * (tower.max - tower.min + 1)) + tower.min;
 
-      const el = document.createElement("div");
-      el.className = "tower";
-      el.innerHTML = `
-        <div>
-          <div class="name">${tower.name}</div>
-          <div class="range">Range: ${tower.min}–${tower.max}</div>
-        </div>
-        <div class="token">${value} Token</div>
-      `;
-      container.appendChild(el);
-    });
-  </script>
-</body>
-</html>
+        const el = document.createElement("div");
+        el.className = "tower";
+        el.innerHTML = `
+          <div>
+            <div class="name">${tower.name}</div>
+            <div class="range">Range: ${tower.min}–${tower.max}</div>
+          </div>
+          <div class="token">${value} Token</div>
+        `;
+        container.appendChild(el);
+      });
+    }
+
+    button.addEventListener("click", generate);
+    generate();
