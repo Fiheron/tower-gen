@@ -34,26 +34,51 @@
     p {
       text-align: center;
       opacity: 0.8;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       font-size: clamp(14px, 2.5vw, 16px);
     }
-    button {
-      display: block;
-      margin: 0 auto 24px;
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    button, select {
       padding: 12px 22px;
       border-radius: 12px;
       border: none;
-      cursor: pointer;
       font-size: 15px;
       font-weight: 700;
-      background: #ffd86b;
-      color: #1a1a1a;
       box-shadow: 0 5px 15px rgba(0,0,0,0.25);
       transition: all 0.2s ease;
+      height: 48px;
+    }
+    button {
+      cursor: pointer;
+      background: #ffd86b;
+      color: #1a1a1a;
     }
     button:hover {
       transform: translateY(-2px);
       box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+      background: #ffdf85;
+    }
+    select {
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+      outline: none;
+    }
+    select:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+    }
+    select option {
+      background: #1e2140;
+      color: #fff;
     }
     .grid {
       display: grid;
@@ -105,12 +130,20 @@
   <div class="container">
     <h1>Tower Token Generator</h1>
     <p>Random values are generated every time you press regenerate.</p>
-    <button id="regen">Regenerate</button>
+    
+    <div class="controls">
+      <button id="regen">Regenerate</button>
+      <select id="sortMode">
+        <option value="name">Name (A-Z)</option>
+        <option value="price">Tokens (High to Low)</option>
+      </select>
+    </div>
+
     <div id="list" class="grid"></div>
   </div>
 
   <script>
-    const towers = [
+    const towerConfig = [
       { name: "Aviator", min: 3, max: 6 },
       { name: "Barracks", min: 1, max: 4 },
       { name: "Commander", min: 7, max: 10 },
@@ -133,29 +166,57 @@
       { name: "Soldier", min: 5, max: 8 },
       { name: "Tuber", min: 3, max: 6 },
       { name: "Zed", min: 3, max: 6 }
-    ].sort((a, b) => a.name.localeCompare(b.name));
+    ];
+
+    let currentData = [];
 
     const container = document.getElementById("list");
     const button = document.getElementById("regen");
+    const sortSelect = document.getElementById("sortMode");
 
-    function generate() {
+    function generateValues() {
+      currentData = towerConfig.map(tower => {
+        return {
+          ...tower,
+          value: Math.floor(Math.random() * (tower.max - tower.min + 1)) + tower.min
+        };
+      });
+      render();
+    }
+
+    function render() {
+      const sortMode = sortSelect.value;
+      
+      if (sortMode === "price") {
+        currentData.sort((a, b) => {
+          if (b.value !== a.value) {
+            return b.value - a.value;
+          }
+          return a.name.localeCompare(b.name);
+        });
+      } else {
+        currentData.sort((a, b) => a.name.localeCompare(b.name));
+      }
+
       container.innerHTML = "";
-      towers.forEach((tower) => {
-        const value = Math.floor(Math.random() * (tower.max - tower.min + 1)) + tower.min;
-        const tokenText = value === 1 ? 'Token' : 'Tokens';
+      
+      currentData.forEach((tower) => {
+        const tokenText = tower.value === 1 ? 'Token' : 'Tokens';
         const el = document.createElement("div");
         el.className = "tower";
         el.innerHTML = `
           <div class="name">${tower.name}</div>
           <div class="range">Range: ${tower.min}–${tower.max}</div>
-          <div class="token">${value} ${tokenText}</div>
+          <div class="token">${tower.value} ${tokenText}</div>
         `;
         container.appendChild(el);
       });
     }
 
-    button.addEventListener("click", generate);
-    generate();
+    button.addEventListener("click", generateValues);
+    sortSelect.addEventListener("change", render);
+
+    generateValues();
   </script>
 </body>
 </html>
