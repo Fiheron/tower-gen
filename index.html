@@ -262,9 +262,12 @@
     };
 
     function generateValues() {
+      const roll = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+      const shotgunnerValue = roll(6, 10);
       currentData = towerConfig.map(tower => ({
         ...tower,
-        value: Math.floor(Math.random() * (tower.max - tower.min + 1)) + tower.min
+        value: tower.name === "Shotgunner" ? shotgunnerValue
+          : roll(tower.name === "Marksman" ? 16 - shotgunnerValue : tower.min, tower.max)
       }));
       render();
     }
