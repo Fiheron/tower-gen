@@ -1,300 +1,258 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Tower Token Generator</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #0f1220;
-      --card-bg: #1a1d33;
-      --card-hover: #232640;
-      --accent: #ffd86b;
-      --accent-hover: #ffe499;
-      --text-main: #ffffff;
-      --text-muted: #8b9bb4;
-      --border: rgba(255, 255, 255, 0.08);
-      --shadow: 0 4px 20px rgba(0,0,0,0.3);
-    }
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      -webkit-tap-highlight-color: transparent;
-    }
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: var(--bg);
-      color: var(--text-main);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
-    }
-    .container {
-      width: 100%;
-      max-width: 1000px;
-    }
-    header {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-    h1 {
-      font-weight: 800;
-      font-size: clamp(24px, 4vw, 32px);
-      letter-spacing: -0.5px;
-      margin-bottom: 8px;
-      background: linear-gradient(to right, #fff, var(--text-muted));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    p {
-      color: var(--text-muted);
-      font-size: 14px;
-    }
-    .controls {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-    }
-    .btn, .select-wrapper {
-      height: 44px;
-    }
-    .btn {
-      padding: 0 24px;
-      border-radius: 10px;
-      border: none;
-      font-size: 14px;
-      font-weight: 700;
-      background: var(--accent);
-      color: #0f1220;
-      cursor: pointer;
-      transition: transform 0.2s, background-color 0.2s;
-      white-space: nowrap;
-    }
-    .btn:active {
-      transform: scale(0.96);
-    }
-    .btn:hover {
-      background: var(--accent-hover);
-    }
-    .select-wrapper {
-      position: relative;
-      min-width: 180px;
-    }
-    select {
-      width: 100%;
-      height: 100%;
-      appearance: none;
-      background-color: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 0 34px 0 16px;
-      color: var(--text-main);
-      font-family: inherit;
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      outline: none;
-      transition: border-color 0.2s, background-color 0.2s;
-    }
-    select:hover {
-      border-color: rgba(255,255,255,0.2);
-      background-color: var(--card-hover);
-    }
-    select:focus {
-      border-color: var(--accent);
-    }
-    .select-wrapper::after {
-      content: '';
-      position: absolute;
-      right: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 0; 
-      height: 0; 
-      border-left: 4px solid transparent;
-      border-right: 4px solid transparent;
-      border-top: 4px solid var(--text-muted);
-      pointer-events: none;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 16px;
-      width: 100%;
-    }
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-      position: relative;
-    }
-    .card:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow);
-      border-color: rgba(255, 216, 107, 0.3);
-      background: var(--card-hover);
-    }
-    .card-name {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      line-height: 1.2;
-    }
-    .card-value {
-      font-size: 28px;
-      font-weight: 800;
-      color: var(--text-main);
-      line-height: 1;
-      margin-bottom: 2px;
-    }
-    .card-label {
-      font-size: 12px;
-      color: var(--accent);
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
-    .card-range {
-      font-size: 11px;
-      color: rgba(255,255,255,0.4);
-      background: rgba(0,0,0,0.2);
-      padding: 3px 8px;
-      border-radius: 12px;
-    }
-    @media (max-width: 600px) {
-      body {
-        padding: 16px;
-      }
-      .controls {
-        gap: 10px;
-        width: 100%;
-      }
-      .btn, .select-wrapper {
-        flex: 1;
-      }
-      .select-wrapper {
-        min-width: 140px;
-      }
-      .grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-      }
-      .card {
-        padding: 14px 10px;
-      }
-      .card-value {
-        font-size: 24px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tower Randomizer</title>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    background: #111;
+    color: #eee;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    gap: 32px;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: #fff;
+  }
+
+  .pools {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    max-width: 680px;
+  }
+
+  .pool {
+    flex: 1;
+    background: #1a1a1a;
+    border-radius: 10px;
+    padding: 14px;
+  }
+
+  .pool-title {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .pool:nth-child(1) .pool-title { color: #818cf8; }
+  .pool:nth-child(2) .pool-title { color: #f472b6; }
+  .pool:nth-child(3) .pool-title { color: #fb923c; }
+
+  .pool ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .pool ul li {
+    font-size: 0.78rem;
+    color: #555;
+    padding: 3px 6px;
+    border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .pool ul li.active {
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .pool:nth-child(1) ul li.active { background: rgba(129,140,248,0.15); }
+  .pool:nth-child(2) ul li.active { background: rgba(244,114,182,0.15); }
+  .pool:nth-child(3) ul li.active { background: rgba(251,146,60,0.15); }
+
+  .result {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    max-width: 680px;
+  }
+
+  .card {
+    flex: 1;
+    background: #1a1a1a;
+    border-radius: 10px;
+    padding: 16px 10px;
+    text-align: center;
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
+  }
+
+  .card .label {
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    color: #444;
+  }
+
+  .card .name {
+    font-size: 0.95rem;
+    font-weight: 800;
+    line-height: 1.3;
+  }
+
+  .card.farm { border-color: #22c55e; }
+  .card.farm .label { color: #22c55e; }
+  .card.farm .name { color: #22c55e; }
+
+  .card.p1 { border-color: #818cf8; }
+  .card.p1 .label { color: #818cf8; }
+  .card.p1 .name { color: #818cf8; }
+
+  .card.p2 { border-color: #f472b6; }
+  .card.p2 .label { color: #f472b6; }
+  .card.p2 .name { color: #f472b6; }
+
+  .card.p3 { border-color: #fb923c; }
+  .card.p3 .label { color: #fb923c; }
+  .card.p3 .name { color: #fb923c; }
+
+  @keyframes pop {
+    0% { transform: scale(0.9); opacity: 0; }
+    70% { transform: scale(1.05); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .card.animate .name {
+    animation: pop 0.35s ease forwards;
+  }
+
+  button {
+    font-family: 'Rubik', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    background: #fff;
+    color: #111;
+    border: none;
+    border-radius: 10px;
+    padding: 14px 48px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  button:hover { background: #ddd; }
+  button:active { transform: scale(0.97); }
+
+  @media (max-width: 500px) {
+    .pools { flex-direction: column; }
+    .result { flex-wrap: wrap; }
+    .card { min-width: calc(50% - 5px); }
+  }
+</style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Tower Token Generator</h1>
-      <p>Click regenerate to randomize values.</p>
-    </header>
-    
-    <div class="controls">
-      <button id="regen" class="btn">Regenerate</button>
-      <div class="select-wrapper">
-        <select id="sortMode">
-          <option value="name">Name (A-Z)</option>
-          <option value="high">Tokens (High to Low)</option>
-          <option value="low">Tokens (Low to High)</option>
-        </select>
-      </div>
-    </div>
 
-    <div id="list" class="grid"></div>
+<h1>Tower Randomizer</h1>
+
+<div class="pools">
+  <div class="pool">
+    <div class="pool-title">Pool 1</div>
+    <ul id="p1">
+      <li>Fragger</li>
+      <li>Commando</li>
+      <li>Tweeter</li>
+      <li>Cryo-Gunner</li>
+      <li>Barracks</li>
+      <li>Marksman</li>
+    </ul>
   </div>
+  <div class="pool">
+    <div class="pool-title">Pool 2</div>
+    <ul id="p2">
+      <li>Mercenary</li>
+      <li>Flamethrower</li>
+      <li>Patrol</li>
+      <li>Phaser</li>
+      <li>Mortar</li>
+      <li>Graveyard</li>
+    </ul>
+  </div>
+  <div class="pool">
+    <div class="pool-title">Pool 3</div>
+    <ul id="p3">
+      <li>Soldier</li>
+      <li>Aviator</li>
+      <li>Tuber</li>
+      <li>Sniper</li>
+      <li>Commander</li>
+      <li>DJ</li>
+      <li>Hallowboomer</li>
+    </ul>
+  </div>
+</div>
 
-  <script>
-    const towerConfig = [
-      { name: "Aviator", min: 6, max: 10 },
-      { name: "Barracks", min: 1, max: 5 },
-      { name: "Commander", min: 6, max: 10 },
-      { name: "Cryo-Gunner", min: 1, max: 5 },
-      { name: "DJ", min: 6, max: 10 },
-      { name: "Flamethrower", min: 6, max: 10 },
-      { name: "Fragger", min: 6, max: 10 },
-      { name: "Golden Commando", min: 6, max: 10 },
-      { name: "Graveyard", min: 1, max: 5 },
-      { name: "Hallowboomer", min: 6, max: 10 },
-      { name: "Marksman", min: 6, max: 10 },
-      { name: "Mercenary", min: 6, max: 10 },
-      { name: "Mortar", min: 6, max: 10 },
-      { name: "Patrol", min: 1, max: 5 },
-      { name: "Railgunner", min: 6, max: 10 },
-      { name: "Phaser", min: 1, max: 5 },
-      { name: "Scout", min: 1, max: 5 },
-      { name: "Shotgunner", min: 6, max: 10 },
-      { name: "Sniper", min: 1, max: 5 },
-      { name: "Soldier", min: 6, max: 10 },
-      { name: "Tuber", min: 1, max: 5 },
-      { name: "Zed", min: 1, max: 5 }
-    ];
+<div class="result">
+  <div class="card farm">
+    <div class="label">Fixed</div>
+    <div class="name">Farm</div>
+  </div>
+  <div class="card p1">
+    <div class="label">Pool 1</div>
+    <div class="name" id="r1">—</div>
+  </div>
+  <div class="card p2">
+    <div class="label">Pool 2</div>
+    <div class="name" id="r2">—</div>
+  </div>
+  <div class="card p3">
+    <div class="label">Pool 3</div>
+    <div class="name" id="r3">—</div>
+  </div>
+</div>
 
-    let currentData = [];
-    const container = document.getElementById("list");
-    const button = document.getElementById("regen");
-    const sortSelect = document.getElementById("sortMode");
+<button onclick="roll()">Roll</button>
 
-    const sortStrategies = {
-      name: (a, b) => a.name.localeCompare(b.name),
-      high: (a, b) => (b.value - a.value) || a.name.localeCompare(b.name),
-      low: (a, b) => (a.value - b.value) || a.name.localeCompare(b.name)
-    };
+<script>
+const pools = [
+  ['Fragger', 'Commando', 'Tweeter', 'Cryo-Gunner', 'Barracks', 'Marksman'],
+  ['Mercenary', 'Flamethrower', 'Patrol', 'Phaser', 'Mortar', 'Graveyard'],
+  ['Soldier', 'Aviator', 'Tuber', 'Sniper', 'Commander', 'DJ', 'Hallowboomer']
+];
 
-    function generateValues() {
-      currentData = towerConfig.map(tower => ({
-        ...tower,
-        value: Math.floor(Math.random() * (tower.max - tower.min + 1)) + tower.min
-      }));
-      render();
-    }
+const resultIds = ['r1', 'r2', 'r3'];
+const listIds = ['p1', 'p2', 'p3'];
+const cardClasses = ['p1', 'p2', 'p3'];
 
-    function render() {
-      const sortFn = sortStrategies[sortSelect.value];
-      currentData.sort(sortFn);
+function roll() {
+  listIds.forEach(id => {
+    document.getElementById(id).querySelectorAll('li').forEach(li => li.classList.remove('active'));
+  });
 
-      const fragment = document.createDocumentFragment();
-      
-      currentData.forEach((tower) => {
-        const el = document.createElement("div");
-        el.className = "card";
-        el.innerHTML = `
-          <div class="card-name">${tower.name}</div>
-          <div class="card-value">${tower.value}</div>
-          <div class="card-label">${tower.value === 1 ? 'Token' : 'Tokens'}</div>
-          <div class="card-range">${tower.min} – ${tower.max}</div>
-        `;
-        fragment.appendChild(el);
-      });
-      
-      container.innerHTML = "";
-      container.appendChild(fragment);
-    }
+  pools.forEach((pool, i) => {
+    const picked = pool[Math.floor(Math.random() * pool.length)];
+    const el = document.getElementById(resultIds[i]);
+    const card = el.closest('.card');
 
-    button.addEventListener("click", generateValues);
-    sortSelect.addEventListener("change", render);
+    card.classList.remove('animate');
+    void card.offsetWidth;
+    card.classList.add('animate');
 
-    generateValues();
-  </script>
+    el.textContent = picked;
+
+    document.getElementById(listIds[i]).querySelectorAll('li').forEach(li => {
+      if (li.textContent === picked) li.classList.add('active');
+    });
+  });
+}
+</script>
 </body>
 </html>
