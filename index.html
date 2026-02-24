@@ -69,10 +69,7 @@
     transition: background 0.2s, color 0.2s;
   }
 
-  .pool ul li.active {
-    color: #fff;
-    font-weight: 600;
-  }
+  .pool ul li.active { color: #fff; font-weight: 600; }
 
   .pool:nth-child(1) ul li.active { background: rgba(129,140,248,0.15); }
   .pool:nth-child(2) ul li.active { background: rgba(244,114,182,0.15); }
@@ -92,7 +89,6 @@
     padding: 16px 10px;
     text-align: center;
     border: 2px solid transparent;
-    transition: border-color 0.3s;
   }
 
   .card .label {
@@ -171,7 +167,6 @@
       <li>Commando</li>
       <li>Tweeter</li>
       <li>Cryo-Gunner</li>
-      <li>Barracks</li>
       <li>Marksman</li>
     </ul>
   </div>
@@ -192,7 +187,6 @@
       <li>Soldier</li>
       <li>Aviator</li>
       <li>Tuber</li>
-      <li>Sniper</li>
       <li>Commander</li>
       <li>DJ</li>
       <li>Hallowboomer</li>
@@ -223,14 +217,13 @@
 
 <script>
 const pools = [
-  ['Fragger', 'Commando', 'Tweeter', 'Cryo-Gunner', 'Barracks', 'Marksman'],
+  ['Fragger', 'Commando', 'Tweeter', 'Cryo-Gunner', 'Marksman'],
   ['Mercenary', 'Flamethrower', 'Patrol', 'Phaser', 'Mortar', 'Graveyard'],
-  ['Soldier', 'Aviator', 'Tuber', 'Sniper', 'Commander', 'DJ', 'Hallowboomer']
+  ['Soldier', 'Aviator', 'Tuber', 'Commander', 'DJ', 'Hallowboomer']
 ];
 
 const resultIds = ['r1', 'r2', 'r3'];
 const listIds = ['p1', 'p2', 'p3'];
-const cardClasses = ['p1', 'p2', 'p3'];
 
 function roll() {
   listIds.forEach(id => {
