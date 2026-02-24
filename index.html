@@ -32,11 +32,13 @@
     display: flex;
     gap: 12px;
     width: 100%;
-    max-width: 680px;
+    max-width: 780px;
+    flex-wrap: wrap;
   }
 
   .pool {
     flex: 1;
+    min-width: 140px;
     background: #1a1a1a;
     border-radius: 10px;
     padding: 14px;
@@ -53,6 +55,7 @@
   .pool:nth-child(1) .pool-title { color: #818cf8; }
   .pool:nth-child(2) .pool-title { color: #f472b6; }
   .pool:nth-child(3) .pool-title { color: #fb923c; }
+  .pool:nth-child(4) .pool-title { color: #34d399; }
 
   .pool ul {
     list-style: none;
@@ -74,16 +77,19 @@
   .pool:nth-child(1) ul li.active { background: rgba(129,140,248,0.15); }
   .pool:nth-child(2) ul li.active { background: rgba(244,114,182,0.15); }
   .pool:nth-child(3) ul li.active { background: rgba(251,146,60,0.15); }
+  .pool:nth-child(4) ul li.active { background: rgba(52,211,153,0.15); }
 
   .result {
     display: flex;
     gap: 10px;
     width: 100%;
-    max-width: 680px;
+    max-width: 780px;
+    flex-wrap: wrap;
   }
 
   .card {
     flex: 1;
+    min-width: 120px;
     background: #1a1a1a;
     border-radius: 10px;
     padding: 16px 10px;
@@ -122,6 +128,10 @@
   .card.p3 .label { color: #fb923c; }
   .card.p3 .name { color: #fb923c; }
 
+  .card.p4 { border-color: #34d399; }
+  .card.p4 .label { color: #34d399; }
+  .card.p4 .name { color: #34d399; }
+
   @keyframes pop {
     0% { transform: scale(0.9); opacity: 0; }
     70% { transform: scale(1.05); }
@@ -147,12 +157,6 @@
 
   button:hover { background: #ddd; }
   button:active { transform: scale(0.97); }
-
-  @media (max-width: 500px) {
-    .pools { flex-direction: column; }
-    .result { flex-wrap: wrap; }
-    .card { min-width: calc(50% - 5px); }
-  }
 </style>
 </head>
 <body>
@@ -164,7 +168,6 @@
     <div class="pool-title">Pool 1</div>
     <ul id="p1">
       <li>Fragger</li>
-      <li>Commando</li>
       <li>Tweeter</li>
       <li>Cryo-Gunner</li>
       <li>Marksman</li>
@@ -173,12 +176,11 @@
   <div class="pool">
     <div class="pool-title">Pool 2</div>
     <ul id="p2">
+      <li>Commando</li>
       <li>Mercenary</li>
       <li>Flamethrower</li>
       <li>Patrol</li>
-      <li>Phaser</li>
       <li>Mortar</li>
-      <li>Graveyard</li>
     </ul>
   </div>
   <div class="pool">
@@ -187,9 +189,15 @@
       <li>Soldier</li>
       <li>Aviator</li>
       <li>Tuber</li>
-      <li>Commander</li>
-      <li>DJ</li>
       <li>Hallowboomer</li>
+      <li>Phaser</li>
+    </ul>
+  </div>
+  <div class="pool">
+    <div class="pool-title">Pool 4 — Support</div>
+    <ul id="p4">
+      <li>DJ</li>
+      <li>Commander</li>
     </ul>
   </div>
 </div>
@@ -211,19 +219,24 @@
     <div class="label">Pool 3</div>
     <div class="name" id="r3">—</div>
   </div>
+  <div class="card p4">
+    <div class="label">Support</div>
+    <div class="name" id="r4">—</div>
+  </div>
 </div>
 
 <button onclick="roll()">Roll</button>
 
 <script>
 const pools = [
-  ['Fragger', 'Commando', 'Tweeter', 'Cryo-Gunner', 'Marksman'],
-  ['Mercenary', 'Flamethrower', 'Patrol', 'Phaser', 'Mortar', 'Graveyard'],
-  ['Soldier', 'Aviator', 'Tuber', 'Commander', 'DJ', 'Hallowboomer']
+  ['Fragger', 'Tweeter', 'Cryo-Gunner', 'Marksman'],
+  ['Commando', 'Mercenary', 'Flamethrower', 'Patrol', 'Mortar'],
+  ['Soldier', 'Aviator', 'Tuber', 'Hallowboomer', 'Phaser'],
+  ['DJ', 'Commander']
 ];
 
-const resultIds = ['r1', 'r2', 'r3'];
-const listIds = ['p1', 'p2', 'p3'];
+const resultIds = ['r1', 'r2', 'r3', 'r4'];
+const listIds = ['p1', 'p2', 'p3', 'p4'];
 
 function roll() {
   listIds.forEach(id => {
